@@ -1,0 +1,42 @@
+{
+  "name": "pm_junior",
+  "version": "1.0.0",
+  "description": "a basic nodeJS package-manager",
+  "main": "dist/index.js",
+  "bin": {
+    "pm_junior": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "link": "npm run build && npm link && sed -i '1s|^|#!/usr/bin/node\\n|' dist/index.js",
+    "lint": "eslint src/*.ts"
+  },
+  "author": "brkncookie",
+  "license": "ISC",
+  "dependencies": {
+    "find-up": "^7.0.0",
+    "fs-extra": "^11.2.0",
+    "js-yaml": "^4.1.0",
+    "log-update": "^6.0.0",
+    "progress": "^2.0.3",
+    "semver": "^7.6.2",
+    "tar": "^7.2.0",
+    "undici": "^6.18.2",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.4.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/js-yaml": "^4.0.9",
+    "@types/progress": "^2.0.7",
+    "@types/semver": "^7.5.8",
+    "@types/tar": "^6.1.13",
+    "@types/yargs": "^17.0.32",
+    "@typescript-eslint/eslint-plugin": "^7.12.0",
+    "@typescript-eslint/parser": "^7.12.0",
+    "eslint": "^8.56.0",
+    "globals": "^15.4.0",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.12.0"
+  }
+}
