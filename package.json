@@ -14,7 +14,7 @@
   "author": "brkncookie",
   "license": "ISC",
   "dependencies": {
-    "find-up": "^7.0.0",
+    "find-up": "^5.0.0",
     "fs-extra": "^11.2.0",
     "js-yaml": "^4.1.0",
     "log-update": "^6.0.0",
