@@ -17,14 +17,14 @@ const toSet: LockEntries = Object.create(null);
 const toGet: LockEntries = Object.create(null);
 
 export function setLock() {
-  fs.writeFileSync("./pm_junior.yml", yaml.dump(toSet, { noRefs: true }));
+  fs.writeFileSync("./pm_junior-lock.yml", yaml.dump(toSet, { noRefs: true }));
 }
 
 export function getLock() {
-  fs.pathExistsSync("./pm_junior.yml") &&
+  fs.pathExistsSync("./pm_junior-lock.yml") &&
     Object.assign(
       toGet,
-      yaml.load(fs.readFileSync("./pm_junior.yml", "utf-8"))
+      yaml.load(fs.readFileSync("./pm_junior-lock.yml", "utf-8"))
     );
 }
 

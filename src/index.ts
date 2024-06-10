@@ -1,7 +1,26 @@
 import yargs from "yargs";
+import * as packageMetadata from "./packages-metadata-ops";
+import resolvePackages from "./packages-ops";
+import { installPackage } from "./packages-registery-ops";
 
-function pm_junior(args: yargs.Arguments) {
-  console.log(args);
+async function pm_junior(args: yargs.Arguments) {
+  const jsonFile = await packageMetadata.getPackageJson(args);
+
+  const packagesInfo = await resolvePackages(jsonFile);
+
+  await Promise.all(
+    Object.entries(packagesInfo.mainPackagesInfo).map((pkg) =>
+      installPackage(pkg[0], pkg[1].url)
+    )
+  );
+
+  await Promise.all(
+    packagesInfo.SecPackagesInfo.map((pkg) =>
+      installPackage(pkg.pkgName, pkg.url, `/node_modules/${pkg.parent}`)
+    )
+  );
+
+  packageMetadata.setPackageJson(jsonFile);
 }
 
 yargs
