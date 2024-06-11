@@ -21,8 +21,7 @@ export async function installPackage(
   (await request(url)).body
     .pipe(tar.extract({ cwd: pkgPath, strip: 1 }))
     .on("close", () => {
-      console.clear();
-      console.log("Installed " + pkgName);
+      if (!location.length) console.log("^^^Installed " + pkgName);
     });
 }
 
@@ -34,7 +33,7 @@ export async function getPackageMetadata(
   ).body.json()) as { error: string } | { versions: PackageMetadata };
 
   if ("error" in result)
-    throw new ReferenceError(`No package with name:${pkgName}`);
+    throw new ReferenceError(`No package with name: ${pkgName}`);
 
   return result.versions;
 }

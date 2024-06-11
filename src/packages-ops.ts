@@ -1,3 +1,4 @@
+import yargs from "yargs";
 import {
   getLock,
   getLockEntry,
@@ -57,7 +58,7 @@ async function resolvePackages(
   dependencyGraph: DependencyGraph = []
 ) {
   console.clear();
-  console.log("### Resolving : " + pkgName);
+  console.log("### Resolving : " + pkgName + " ###");
 
   let pkgsMetadata: PackageMetadata;
   if (!(pkgsMetadata = getLockEntry(pkgName, semanticVersion)!))
@@ -73,7 +74,6 @@ async function resolvePackages(
     } else throw new Error("Couldn't find a compatible version.");
   }
   const compatiblePkgVersion = pkgsMetadata[version];
-  // log the progress
 
   if (!mainPackagesInfo[pkgName]) {
     mainPackagesInfo[pkgName] = {
@@ -121,7 +121,7 @@ async function resolvePackages(
   return { pkgName, version: semanticVersion };
 }
 
-export default async function (pkgJson: PackageJson) {
+export default async function (pkgJson: PackageJson, args: yargs.Arguments) {
   getLock();
   pkgJson.dependencies &&
     (
@@ -132,14 +132,17 @@ export default async function (pkgJson: PackageJson) {
       )
     ).forEach((pkg) => (pkgJson.dependencies[pkg.pkgName] = pkg.version));
 
-  pkgJson.devDependencies &&
-    (
-      await Promise.all(
-        Object.entries(pkgJson.devDependencies).map((pkg) =>
-          resolvePackages(...pkg)
+  if (!args.production) {
+    pkgJson.devDependencies &&
+      (
+        await Promise.all(
+          Object.entries(pkgJson.devDependencies).map((pkg) =>
+            resolvePackages(...pkg)
+          )
         )
-      )
-    ).forEach((pkg) => (pkgJson.devDependencies[pkg.pkgName] = pkg.version));
+      ).forEach((pkg) => (pkgJson.devDependencies[pkg.pkgName] = pkg.version));
+  }
   setLock();
+  console.clear();
   return { mainPackagesInfo, SecPackagesInfo };
 }

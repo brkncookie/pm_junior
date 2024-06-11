@@ -6,7 +6,7 @@ import { installPackage } from "./packages-registery-ops";
 async function pm_junior(args: yargs.Arguments) {
   const jsonFile = await packageMetadata.getPackageJson(args);
 
-  const packagesInfo = await resolvePackages(jsonFile);
+  const packagesInfo = await resolvePackages(jsonFile, args);
 
   await Promise.all(
     Object.entries(packagesInfo.mainPackagesInfo).map((pkg) =>

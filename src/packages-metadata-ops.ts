@@ -61,7 +61,6 @@ export async function getPackageJson(args: yargs.Arguments) {
     !args.dev && packages.forEach((pkg) => (jsonFile.dependencies[pkg] = ""));
   }
 
-  args.production && delete jsonFile.devDependencies;
   return jsonFile;
 }
 
