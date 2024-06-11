@@ -39,6 +39,9 @@ type SecPackageInfo = Array<{
 
 const mainPackagesInfo: MainPackageInfo = Object.create(null);
 const SecPackagesInfo: SecPackageInfo = [];
+
+let flat: boolean = false;
+
 function isCircularDep(
   dep: string,
   semVer: string,
@@ -75,14 +78,28 @@ async function resolvePackages(
   }
   const compatiblePkgVersion = pkgsMetadata[version];
 
-  if (!mainPackagesInfo[pkgName]) {
+  let firstCondition: boolean;
+  let secondCondition: boolean;
+
+  if (!flat) {
+    firstCondition = !dependencyGraph.length;
+    secondCondition = !!dependencyGraph.length;
+  } else {
+    firstCondition = !mainPackagesInfo[pkgName];
+    if (!firstCondition) {
+      secondCondition = !semver.satisfies(
+        mainPackagesInfo[pkgName].version,
+        semanticVersion
+      );
+    } else secondCondition = false;
+  }
+
+  if (firstCondition) {
     mainPackagesInfo[pkgName] = {
       url: compatiblePkgVersion.dist.tarball,
       version: version,
     };
-  } else if (
-    !semver.satisfies(mainPackagesInfo[pkgName].version, semanticVersion)
-  ) {
+  } else if (secondCondition) {
     SecPackagesInfo.push({
       pkgName: pkgName,
       url: compatiblePkgVersion.dist.tarball,
@@ -123,6 +140,7 @@ async function resolvePackages(
 
 export default async function (pkgJson: PackageJson, args: yargs.Arguments) {
   getLock();
+  if (args.flatten) flat = true;
   pkgJson.dependencies &&
     (
       await Promise.all(

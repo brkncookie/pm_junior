@@ -26,6 +26,7 @@ export function getLock() {
       toGet,
       yaml.load(fs.readFileSync("./pm_junior-lock.yml", "utf-8"))
     );
+  fs.pathExistsSync("./node_modules") && fs.removeSync("./node_modules");
 }
 
 export function setLockEntry(pkgName: string, lockEntry: LockEntries[string]) {

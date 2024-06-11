@@ -32,6 +32,11 @@ yargs
         type: "boolean",
         description: "Install production packages only",
       });
+      argv.option("flatten", {
+        type: "boolean",
+        description:
+          "Install with a flat dependency-graph, Default is a nested dependency-graph",
+      });
       argv.option("dev", {
         type: "boolean",
         description: "Install as a development dependancy package",
