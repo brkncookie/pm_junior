@@ -1,5 +1,5 @@
 {
-  "name": "pm_junior",
+  "name": "@brkncookie/pm_junior",
   "version": "1.0.0",
   "description": "a basic nodeJS package-manager",
   "main": "dist/index.js",
@@ -12,6 +12,13 @@
     "lint": "eslint src/*.ts"
   },
   "author": "brkncookie",
+  "keywords": [
+    "typescript",
+    "package-manager",
+    "npm",
+    "pnpm",
+    "yarn"
+  ],
   "license": "ISC",
   "dependencies": {
     "find-up": "^5.0.0",
