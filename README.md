@@ -44,11 +44,11 @@ cd pm_junior && npm install && npm run link
   ```bash
   pm_junior install <pkg_name>
   ```
-- Install a specific package and add it to the devDependencies property in package.json:
+- Install a specific package and add it to the `devDependencies` property in package.json:
   ```bash
   pm_junior install --dev <pkg_name>
   ```
-- Install production level packages and ingore devDependencies:
+- Install production level packages and ignore `devDependencies`:
   ```bash
   pm_junior install --production
   ```
