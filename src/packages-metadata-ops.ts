@@ -1,7 +1,7 @@
 import yargs from "yargs";
 import * as fs from "fs-extra";
 import findUp from "find-up";
-import { Dependencies } from "./packages-ops";
+import { Dependencies, PackageJson } from "./packages-ops";
 import * as yaml from "js-yaml";
 
 interface LockEntries {
@@ -65,6 +65,6 @@ export async function getPackageJson(args: yargs.Arguments) {
   return jsonFile;
 }
 
-export async function setPackageJson(jsonFile: any) {
+export async function setPackageJson(jsonFile: PackageJson) {
   fs.writeJson((await findUp("package.json"))!, jsonFile, { spaces: 2 });
 }
