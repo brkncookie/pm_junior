@@ -16,7 +16,7 @@
 - Install from the npm registery:
 
 ```bash
-npm install -g pm_junior
+npm install -g @brkncookie/pm_junior
 ```
 
 - Or clone this repo and use the link script:
