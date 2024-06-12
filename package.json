@@ -1,6 +1,6 @@
 {
   "name": "@brkncookie/pm_junior",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a basic nodeJS package-manager",
   "main": "dist/index.js",
   "bin": {
