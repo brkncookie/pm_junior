@@ -1,3 +1,5 @@
+![alt text](https://github.com/brkncookie/pm_junior/blob/main/pm_junior.png?raw=true)
+
 # pm_junior
 
 **package-manager junior** aka _pm_junior_ is a basic NodeJS package manager written in TypeScript.
