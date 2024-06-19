@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "link": "npm run build && npm link && sed -i '1s|^|#!/usr/bin/node\\n|' dist/index.js",
+    "link": "npm run build && npm link && sed -i '1s|^|#!/usr/bin/env node\\n|' dist/index.js",
     "lint": "eslint src/*.ts"
   },
   "author": "brkncookie",
